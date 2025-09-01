@@ -2,8 +2,6 @@
 
 A simple, modern command-line tool for controlling media players on Windows, inspired by `playerctl`.
 
-
-
 ---
 
 ## About The Project
