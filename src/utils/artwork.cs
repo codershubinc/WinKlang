@@ -46,4 +46,33 @@ public class Artwork
         }
         return Array.Empty<byte>();
     }
+
+    public static async Task DisplayArtworkInfoAsync(
+        GlobalSystemMediaTransportControlsSession currentSession
+        )
+    {
+        // Display artwork section header
+        Console.WriteLine(">> ALBUM ARTWORK:");
+        
+        // Get artwork information
+        var artworkFileName = await SaveArtworkAsync(currentSession);
+        
+        if (artworkFileName != "noArtwork")
+        {
+            var artworkBuffer = await GetArtworkBufferAsync(currentSession);
+            var fileSizeKB = artworkBuffer.Length / 1024.0;
+            Console.WriteLine($"   [+] File:        {artworkFileName}");
+            Console.WriteLine($"   # Size:        {fileSizeKB:F1} KB ({artworkBuffer.Length:N0} bytes)");
+            Console.WriteLine($"   # Resolution:  ~150x150 px (Windows API limit)");
+            Console.WriteLine($"   ! Tip:         Use music service APIs for HD artwork");
+        }
+        else
+        {
+            Console.WriteLine($"   [-] Status:      No artwork available");
+            Console.WriteLine($"   ! Tip:         Some players don't provide artwork via Windows API");
+        }
+        
+        Console.WriteLine();
+        Console.WriteLine("=================================================================");
+    }
 }
