@@ -11,33 +11,26 @@ public class Program
 
             if (currentSession != null)
             {
-                // --- THIS IS THE FIX ---
-                // Wait a quarter of a second to allow Windows to update the timeline info.
-                await Task.Delay(250);
+                // Check playback status first
+                var playbackInfo = currentSession.GetPlaybackInfo();
+                Console.WriteLine($"Initial Playback Status: {playbackInfo.PlaybackStatus}");
 
-                // Now, get the timeline information
-                var timelineProperties = currentSession.GetTimelineProperties();
-                
-                var mediaProperties = await currentSession.TryGetMediaPropertiesAsync();
+                // Wait longer for timeline to update
+                Console.WriteLine("Waiting for timeline to update...");
+                await Task.Delay(1000);
 
-                Console.WriteLine($"Title:  {mediaProperties.Title}");
-                Console.WriteLine($"Artist: {mediaProperties.Artist}");
-                Console.WriteLine($"Album:  {mediaProperties.AlbumTitle}");
-                
-                string currentTime = timelineProperties.Position.ToString(@"mm\:ss");
-                string totalTime = timelineProperties.EndTime.ToString(@"mm\:ss");
-                Console.WriteLine($"Time:   {currentTime} / {totalTime}");
+                var timelineInfo = Timeline.getTimeline(currentSession);
 
-                if (mediaProperties.Thumbnail != null)
-                {
-                    var thumbnailStreamRef = mediaProperties.Thumbnail;
-                    using (var thumbnailStream = await thumbnailStreamRef.OpenReadAsync())
-                    {
-                        using var fileStream = new FileStream("artwork.jpg", FileMode.Create);
-                        await thumbnailStream.AsStreamForRead().CopyToAsync(fileStream);
-                    }
-                    Console.WriteLine("Artwork saved successfully to artwork.jpg");
-                }
+                // You can now use the timeline object properties
+                Console.WriteLine($"Returned object - Current: {timelineInfo.CurrentTime}, Progress: {timelineInfo.ProgressPercent:F1}%");
+                Console.WriteLine($"Playback Status: {currentSession.GetPlaybackInfo().PlaybackStatus}");
+                var artworkFileName = await Artwork.SaveArtworkAsync(currentSession);
+                Console.WriteLine($"Artwork saved as: {artworkFileName}");
+
+                var artworkBuffer = await Artwork.GetArtworkBufferAsync(currentSession);
+                //see whole buffer  as string for testing
+                Console.WriteLine($"Artwork buffer length: {artworkBuffer.Length} bytes");
+                // Console.WriteLine($"Artwork buffer: {BitConverter.ToString(artworkBuffer)}");
             }
             else
             {

@@ -1,3 +1,5 @@
+[![wakatime](https://wakatime.com/badge/user/c8cd0c53-219b-4950-8025-0e666e97e8c8/project/eec5a81a-6bee-4a87-ac29-6e43f71f8a1d.svg)](https://wakatime.com/badge/user/c8cd0c53-219b-4950-8025-0e666e97e8c8/project/eec5a81a-6bee-4a87-ac29-6e43f71f8a1d)
+
 # WinKlang 🎶
 
 A simple, modern command-line tool for controlling media players on Windows, inspired by `playerctl`.
