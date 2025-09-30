@@ -41,7 +41,6 @@ class Timeline
     {
         Console.WriteLine(">> Synchronizing timeline data...");
         Console.WriteLine(">> If it gives wrong time data THEN its windows problem FK windows...");
-        await Task.Delay(100);
 
         var timelineInfo = getTimeline(currentSession);
 
