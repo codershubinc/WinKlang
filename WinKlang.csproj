@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <UseWindowsDesktopSdk>true</UseWindowsDesktopSdk>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
     
     <!-- Self-contained deployment - runs on any Windows PC -->
     <SelfContained>true</SelfContained>
