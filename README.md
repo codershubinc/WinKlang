@@ -38,7 +38,7 @@ If you prefer to build it yourself:
 2. Clone the repository:
 
    ```sh
-   git clone https://github.com/YOUR-USERNAME/WinKlang.git
+   git clone https://github.com/codershubinc/WinKlang.git
    ```
 
 3. Navigate to the project directory:
